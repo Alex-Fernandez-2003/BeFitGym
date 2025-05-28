@@ -1,0 +1,6 @@
+@BeFit_Gym_HostAddress = http://localhost:5100
+
+GET {{BeFit_Gym_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
