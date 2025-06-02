@@ -37,13 +37,13 @@ namespace BeFit_Gym.Presentation.Controllers
             {
                 return BadRequest("Los datos de la solicitud son requeridos.");
             }
-            var cliente = await _asistenciaRepository.CreateAsistencia(dto);
-            if (cliente != null)
+            var asistencia = await _asistenciaRepository.CreateAsistencia(dto);
+            if (asistencia != null)
             {
                 // Guardado en la BD
-                return Ok(cliente);
+                return Ok(asistencia);
             }
-            return BadRequest("El Cliente no existe");
+            return BadRequest("Error");
         }
 
         

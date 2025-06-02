@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using BeFit_Gym.Infraestructure.Data;
 using BeFit_Gym.Core.Interfaces;
 using BeFit_Gym.Infraestructure.Repository;
+using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BeFit_GymContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BeFit_GymContext") ?? throw new InvalidOperationException("Connection string 'BeFit_GymContext' not found.")));
@@ -17,11 +18,19 @@ builder.Services.AddCors(options => {
     });
 });
 
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
+
 // Add services to the container.
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IAsistenciaRepository, AsistenciaRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
-
+builder.Services.AddScoped<IMembresiaRepository, MembresiaRepository>();
+builder.Services.AddScoped<IClienteMembresiaRepository, ClienteMembresiaRepository>();
 
 
 
